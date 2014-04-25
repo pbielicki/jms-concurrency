@@ -10,23 +10,25 @@ public class ConcurrentTest {
 
   public static void main(String[] args) throws Exception {
     String uri = "tcp://localhost:61616";
-	if (args.length > 0) {
-	  uri = args[0];
-	}
+    if (args.length > 0) {
+      uri = args[0];
+    }
+    
     ExecutorService service = new JmsExecutor(uri);
     List<Callable<CalculatorOutput>> tasks = new ArrayList<Callable<CalculatorOutput>>();
     CalculatorInput[] in = new CalculatorInput[] { 
-		new CalculatorInput(10, 20), 
-		new CalculatorInput(30, 50),
-		new CalculatorInput(20, 55),
-		new CalculatorInput(35, 150),
-		new CalculatorInput(130, 500),
-		new CalculatorInput(10, 20),
-		new CalculatorInput(10, 200),
-		new CalculatorInput(11, 22),
-		new CalculatorInput(0, 10),
-		new CalculatorInput(40, 25),
-        new CalculatorInput(60, 80) };
+    		new CalculatorInput(10, 20), 
+    		new CalculatorInput(30, 50),
+    		new CalculatorInput(20, 55),
+    		new CalculatorInput(35, 150),
+    		new CalculatorInput(130, 500),
+    		new CalculatorInput(10, 20),
+    		new CalculatorInput(10, 200),
+    		new CalculatorInput(11, 22),
+    		new CalculatorInput(0, 10),
+    		new CalculatorInput(40, 25),
+        new CalculatorInput(60, 80),
+    };
 		
     for (final CalculatorInput ci : in) {
       tasks.add(new Sum(ci));

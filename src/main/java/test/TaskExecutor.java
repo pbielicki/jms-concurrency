@@ -27,10 +27,10 @@ public class TaskExecutor implements MessageListener {
       try {
         if (msg.getObject() instanceof Callable) {
           Object result = ((Callable<?>) msg.getObject()).call();
-          session.createProducer(message.getJMSReplyTo())
-              .send(session.createObjectMessage((Serializable) result));
-          
-          System.out.println("Thread " + Thread.currentThread().getId() + " OK for " + msg.getObject() + " reuslt " + result);
+          session.createProducer(message.getJMSReplyTo()).send(session.createObjectMessage((Serializable) result));
+
+          System.out.println("Thread " + Thread.currentThread().getId() + " OK for " + msg.getObject() + " reuslt "
+              + result);
         }
       } catch (Exception e) {
         e.printStackTrace();
@@ -38,12 +38,12 @@ public class TaskExecutor implements MessageListener {
     }
 
   }
-  
+
   public static void main(String[] args) throws Exception {
     String uri = "tcp://localhost:61616";
-	if (args.length > 0) {
-	  uri = args[0];
-	}
+    if (args.length > 0) {
+      uri = args[0];
+    }
     ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory(uri);
     Connection connection = factory.createConnection();
     for (int i = 0; i < 10; i++) {
