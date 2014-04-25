@@ -15,7 +15,6 @@ public class ConcurrentTest {
     }
     
     ExecutorService service = new JmsExecutor(uri);
-    List<Callable<CalculatorOutput>> tasks = new ArrayList<Callable<CalculatorOutput>>();
     CalculatorInput[] in = new CalculatorInput[] { 
     		new CalculatorInput(10, 20), 
     		new CalculatorInput(30, 50),
@@ -29,7 +28,8 @@ public class ConcurrentTest {
     		new CalculatorInput(40, 25),
         new CalculatorInput(60, 80),
     };
-		
+    
+    List<Callable<CalculatorOutput>> tasks = new ArrayList<Callable<CalculatorOutput>>(in.length);
     for (final CalculatorInput ci : in) {
       tasks.add(new Sum(ci));
     }

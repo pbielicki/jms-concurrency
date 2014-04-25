@@ -120,8 +120,6 @@ public class JmsExecutor implements ExecutorService {
     List<Future<T>> result = new ArrayList<Future<T>>(tasks.size());
     for (int i = 0; i < tasks.size(); i++) {
       result.add(new Future<T>() {
-        T val;
-        
         @Override
         public boolean cancel(boolean mayInterruptIfRunning) {
           return false;
@@ -144,7 +142,7 @@ public class JmsExecutor implements ExecutorService {
         
         @Override
         public boolean isDone() {
-          return queue.isEmpty() == false && val != null;
+          return queue.isEmpty() == false;
         }
       });
     }
